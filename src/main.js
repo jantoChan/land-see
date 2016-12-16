@@ -4,8 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 
-/* eslint-disable no-new */
-window.vm=new Vue({
+new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
