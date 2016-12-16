@@ -30,7 +30,7 @@ const state = {
     {value: 5,key: 5}
   ],
   keyword: '房地产',
-  api: 'http://localhost:8090?',
+  api: locartion.host+':8090?',
 }
 
 // mutations are operations that actually mutates the state.
@@ -44,7 +44,6 @@ const mutations = {
     let nowpage='page='+state['dat_'+state.keyword.key]['params_page'];
     let params=[type, nowpage];
     let url=state.api+params.join('&');
-    console.log(url);
     state.is_loading=true;
     $.get(url, function(response){
       state.is_loading=false;
