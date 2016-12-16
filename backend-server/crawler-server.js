@@ -20,7 +20,6 @@ const onRequest = (req, res) => {
     if (keyWord && keyWord=='58') {
         let resultArr = []
         page>1 ? page='/pn'+page : page='';
-        console.log(keyWord+'---'+page);
         superagent.get('http://huizhou.58.com/huicheng/ershoufang/0/'+page+'?PGTID=0d30000c-002d-2d06-4b77-b03bf73d8c31&ClickID=4')
         .end((err, response) => {
             if (err) console.log(err)
