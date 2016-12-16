@@ -46,7 +46,7 @@ const onRequest = (req, res) => {
             })
             // console.log(resultArr);
             res.write(JSON.stringify(resultArr))
-            res.end()
+            res.render('../dist/index.html')
         })
     }
     if (keyWord && keyWord=='xz') {
@@ -80,7 +80,7 @@ const onRequest = (req, res) => {
                 resultArr.push(resultObj)
             })//each
             res.write(JSON.stringify(resultArr))
-            res.end()
+            res.render('../dist/index.html')
         })
     }
 }
@@ -99,5 +99,5 @@ const onRequest = (req, res) => {
 //       　　console.log(c);
 // 　　});
 
-http.createServer(onRequest).listen(8090)
+http.createServer(onRequest).listen(process.env.PORT || 8090)
 console.log('Server Start!')
