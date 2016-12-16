@@ -47,6 +47,7 @@ const onRequest = (req, res) => {
             // console.log(resultArr);
             res.write(JSON.stringify(resultArr))
             res.render('../dist/index.html')
+            // res.end()
         })
     }
     if (keyWord && keyWord=='xz') {
@@ -81,6 +82,7 @@ const onRequest = (req, res) => {
             })//each
             res.write(JSON.stringify(resultArr))
             res.render('../dist/index.html')
+            // res.end()
         })
     }
 }
