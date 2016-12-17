@@ -9,6 +9,9 @@ const cheerio = require('cheerio')
 const request = require('request')
 const Iconv = require('iconv').Iconv
 const schedule = require('node-schedule')
+const express = require('express')
+const app = express()
+const ejs = require('ejs')
 
 
 const onRequest = (req, res) => {
@@ -46,7 +49,7 @@ const onRequest = (req, res) => {
             })
             // console.log(resultArr);
             res.write(JSON.stringify(resultArr))
-            res.render('../dist/index.html')
+            res.render('index')
             // res.end()
         })
     }
@@ -81,7 +84,7 @@ const onRequest = (req, res) => {
                 resultArr.push(resultObj)
             })//each
             res.write(JSON.stringify(resultArr))
-            res.render('../dist/index.html')
+            res.render('index');
             // res.end()
         })
     }
@@ -101,5 +104,23 @@ const onRequest = (req, res) => {
 //       　　console.log(c);
 // 　　});
 
-http.createServer(onRequest).listen(process.env.PORT || 8090)
-console.log('Server Start!')
+app.set('port', (process.env.PORT || 8090));
+
+app.use(express.static(__dirname + '/dist/static'));
+
+// views is directory for all template files
+app.set('views', __dirname + '/dist');
+app.engine('.html', ejs.__express);
+app.set('view engine', 'html');
+
+app.get('/', function(req, res) {
+  onRequest(req, res);
+});
+
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
+// http.createServer(onRequest).listen(process.env.PORT || 8090)
+// console.log('Server Start!')
