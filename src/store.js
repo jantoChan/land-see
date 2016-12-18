@@ -30,7 +30,7 @@ const state = {
     {value: 5,key: 5}
   ],
   keyword: '房地产',
-  api: location.protocol+'//'+location.hostname+'/api?',
+  api: '/api?',
 }
 
 // mutations are operations that actually mutates the state.
