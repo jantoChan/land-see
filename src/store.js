@@ -30,7 +30,7 @@ const state = {
     {value: 5,key: 5}
   ],
   keyword: '房地产',
-  api: location.host+':8090?',
+  api: location.protocol+'//'+location.hostname+':8080/api?',
 }
 
 // mutations are operations that actually mutates the state.
@@ -56,7 +56,6 @@ const mutations = {
    setpage (state, page) {
     state['dat_'+state.keyword.key]['params_page']=page.tab;
     state.params_page=page.tab;
-    console.log(page);
    }
 }
 

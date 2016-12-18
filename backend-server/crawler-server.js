@@ -1,7 +1,7 @@
-/*** crawler-server.js ***/
 
 'use strict'
 const http = require('http')
+const httpProxy = require('http-proxy')
 const url = require('url')
 const util = require('util')
 const superagent = require('superagent')
@@ -15,8 +15,7 @@ const ejs = require('ejs')
 
 
 const onRequest = (req, res) => {
-    // CORS options
-    res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*'})
+    res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*', 'charset': 'utf-8'})
     let keyWord = encodeURI(url.parse(req.url, true).query.query);
     let page = encodeURI(url.parse(req.url, true).query.page);
     // recieve keyword from the client side and use it to make requests
@@ -49,8 +48,8 @@ const onRequest = (req, res) => {
             })
             // console.log(resultArr);
             res.write(JSON.stringify(resultArr))
-            res.render('index')
-            // res.end()
+            // res.render('index')
+            res.end()
         })
     }
     if (keyWord && keyWord=='xz') {
@@ -84,8 +83,8 @@ const onRequest = (req, res) => {
                 resultArr.push(resultObj)
             })//each
             res.write(JSON.stringify(resultArr))
-            res.render('index');
-            // res.end()
+            // res.render('index');
+            res.end()
         })
     }
 }
@@ -104,23 +103,24 @@ const onRequest = (req, res) => {
 //       　　console.log(c);
 // 　　});
 
-app.set('port', (process.env.PORT || 8090));
+app.set('port', (process.env.PORT || 8080));
 
-app.use(express.static(__dirname + '/dist/static'));
-
+app.use(express.static('./dist'));
 // views is directory for all template files
-app.set('views', __dirname + '/dist');
+app.set('views', './dist');
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
 app.get('/', function(req, res) {
-  onRequest(req, res);
+  res.render('index');
 });
+
+app.get('/api', function(req, res) {
+  onRequest(req, res);
+})
 
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-// http.createServer(onRequest).listen(process.env.PORT || 8090)
-// console.log('Server Start!')
